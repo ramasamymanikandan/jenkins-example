@@ -1,30 +1,37 @@
 pipeline {
     agent any
 
+    tools {
+        maven 'maven_3_5_0'  // Ensure Maven is correctly configured
+    }
+
     stages {
-        stage ('Compile Stage') {
-
+        stage('Compile Stage') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn clean compile'
+                script {
+                    withMaven(maven: 'maven_3_5_0') {
+                        sh 'mvn clean compile'
+                    }
                 }
             }
         }
 
-        stage ('Testing Stage') {
-
+        stage('Testing Stage') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn test'
+                script {
+                    withMaven(maven: 'maven_3_5_0') {
+                        sh 'mvn test'
+                    }
                 }
             }
         }
 
-
-        stage ('Deployment Stage') {
+        stage('Deployment Stage') {
             steps {
-                withMaven(maven : 'maven_3_5_0') {
-                    sh 'mvn deploy'
+                script {
+                    withMaven(maven: 'maven_3_5_0') {
+                        sh 'mvn deploy'
+                    }
                 }
             }
         }
